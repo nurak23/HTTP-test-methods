@@ -1,0 +1,51 @@
+package art1; // replace with your package name
+import static org.hamcrest.Matchers.*;
+import org.testng.annotations.Test;
+import static io.restassured.RestAssured.*;
+public class GET3 {
+		
+			@Test
+			void test_03() {
+				
+		given().
+		get("https://reqres.in/api/users?page=2").
+		then().
+		statusCode(200).
+		body("data.id[1]", equalTo(8)).
+		body("data.first_name", hasItems("Michael", "Lindsay"));
+	}
+			
+}
+
+////another get variant///use either one of them
+
+package art1;
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+
+public class GET {
+
+	@Test
+	void test1() {
+
+		Response response =	RestAssured.get("https://reqres.in/api/users?page=2");
+		System.out.println(response.asString());
+		System.out.println(response.getBody());
+		System.out.println(response.getStatusCode());
+		System.out.println(response.getStatusLine());
+		System.out.println(response.getHeader("content-type"));
+		System.out.println(response.getTime());
+
+		int StatusCode = response.getStatusCode();
+		Assert.assertEquals(StatusCode,  200);;
+
+
+
+
+	}
+
+}
